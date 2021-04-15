@@ -3,3 +3,15 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.homeNav{
+    @apply text-blue-900 text-lg font-medium mt-5 2xl:ml-52 xl:ml-20 lg:ml-16
+}
+
+.firstRoute{
+    @apply mt-3.5 2xl:ml-12 xl:ml-12 lg:ml-7 text-gray-400 font-medium hover:text-gray-700 tracking-normal
+}
+
+.secondRoute{
+    @apply mt-3.5 2xl:ml-10 xl:ml-7  lg:ml-7 text-gray-400 font-medium hover:text-gray-700
+}
