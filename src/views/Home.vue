@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <homeLanding />
-    
+
   </div>
 </template>
 
