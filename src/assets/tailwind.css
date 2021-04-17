@@ -19,3 +19,11 @@
 .formPromotion{
     @apply mt-1 text-gray-700 border border-gray-300 rounded-md p-1
 }
+
+.addBtn{
+    @apply ml-20 mt-5 text-gray-50 focus:text-green-300
+}
+
+.eandcBtn{
+    @apply ml-5 mt-5 text-gray-50 focus:text-green-300
+}

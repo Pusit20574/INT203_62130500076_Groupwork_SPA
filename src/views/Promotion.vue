@@ -1,5 +1,7 @@
 <template>
-  <base-button id="Btn" @click="displayForm" class="ml-20 mt-5 text-green-300" btn-name='+ Add' />
+  <base-button id="Btn" @click="addForm" class="addBtn" btn-name='+ Add' />
+  <base-button id="Btn" @click="editForm" class="eandcBtn" btn-name='Edit' />
+  <base-button id="Btn" @click="cancel" class="eandcBtn" btn-name='Cancel' />
 
   <div class="flex">
     <div class="promotion" v-if="isFormShow">
@@ -29,7 +31,7 @@
       </form> 
     </div>
 
-    <div v-for="data in dataPromotion" :key="data.id">
+    <div v-for="data in dataPromotion" :key="data.id" @click="showPromotionData(data)">
       <head-note>
         <ul id="list" class="grid-row mr-5">
           <li><span class="font-semibold">{{data.name}}</span></li>
@@ -64,20 +66,47 @@ export default {
       enterPrice: '',
       enterDetail: '',
       dataPromotion: [],
-      url: 'http://localhost:3000/dataPromotion'
+      isEdit: false,
+      editId:'',
+      url: 'http://localhost:5000/dataPromotion'
     }
   },
   methods:{
-    displayForm(){
+    addForm(){
+      this.isEdit = false;
       this.isFormShow = !this.isFormShow;
+      this.enterName = '',
+      this.enterPrice = '',
+      this.enterDetail = ''
+    },
+    editForm(){
+      this.isEdit = true;
+    },
+    cancel(){
+      this.isFormShow = false;
+      this.enterName = '',
+      this.enterPrice = '',
+      this.enterDetail = ''
     },
     submitForm(){
       if(this.enterName !== '' && this.enterPrice !== '' && this.enterDetail !== '') {
-        this.addNewPromotion({
+
+        if(this.isEdit){
+          this.editPromotion({
+            id: this.editId,
+            name: this.enterName,
+            price: this.enterPrice,
+            detail: this.enterDetail
+          })
+          this.isFormShow = !this.isFormShow;
+        }else{
+          this.addNewPromotion({
           name: this.enterName,
           price: this.enterPrice,
           detail: this.enterDetail
-        })
+          })
+          this.isFormShow = !this.isFormShow;
+        }
   
         this.enterName = ''
         this.enterPrice = ''
@@ -86,7 +115,7 @@ export default {
     },
     async addNewPromotion(newData){
       try{
-        const res =await fetch(this.url,{
+        const res = await fetch(this.url,{
         method:'POST',
         headers:{'content-type': 'application/json'},
         body : JSON.stringify({
@@ -102,7 +131,7 @@ export default {
         console.log(`POST error: ${error}`)
       }
     },
-    async getPromotion() {
+    async fetchPromotion() {
       try {
         const res = await fetch(this.url)
         const data = await res.json()
@@ -118,14 +147,60 @@ export default {
         })
         res.status === 200 ? (this.dataPromotion = this.dataPromotion.filter((data) => data.id !== deleteId)) : alert('Delete failed')
       }catch(error){
-        console.log(`could not save ! ${error}`)
+        console.log(`DELETE error: ${error}`)
+      }
+    },
+    showPromotionData(oldData){
+      try{
+        if(this.isEdit){
+          this.isFormShow = true;
+          this.editId = oldData.id
+          this.enterName = oldData.name
+          this.enterPrice = oldData.price
+          this.enterDetail = oldData.detail
+        }
+      }catch(error){
+        console.log(`Show data error: ${error}`)
+      }
+    },
+    async editPromotion(newDataEdit){
+      try{
+        const res = await fetch(`${this.url}/${newDataEdit.id}`,{
+          method: 'PUT',
+          headers:{'content-type': 'application/json'},
+          body: JSON.stringify({
+            name: newDataEdit.name,
+            price: newDataEdit.price,
+            detail: newDataEdit.detail
+          })
+        })
+
+        const data = await res.json()
+        this.dataPromotion = this.dataPromotion.map((dataPro) => dataPro.id === newDataEdit.id ? {...dataPro, name: data.name, price: data.price, detail: data.detail} : dataPro )
+        
+        this.isEdit = false;
+        this.editId = '',
+        this.enterName = '',
+        this.enterPrice = '',
+        this.enterDetail = ''
+      }catch(error){
+        console.log(`EDIT error: ${error}`)
+      }
+    },
+    async fetchEditPromotion() {
+      try {
+        const res = await fetch(`${this.DBUrl}/dataPromotion`);
+        const data = await res.json();
+        return data;
+      }catch(err) {
+        console.log(err);
       }
     }
 
   },
 
   async created(){
-      this.dataPromotion = await this.getPromotion()
+      this.dataPromotion = await this.fetchPromotion()
   }
 
 }
