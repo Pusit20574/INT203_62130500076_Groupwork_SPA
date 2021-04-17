@@ -1,5 +1,11 @@
 <template>
-    <div class="border border-gray-200 rounded-xl shadow p-2 my-1">
+    <div class="border border-gray-200 rounded-b-xl shadow p-4 ml-10">
         <slot></slot>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'baseNote',
+}
+</script>

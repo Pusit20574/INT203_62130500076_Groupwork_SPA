@@ -1,5 +1,28 @@
 {
   "dataPromotion": [
-    
+    {
+      "name": "Gift Set",
+      "price": "199",
+      "detail": "Soy wax: 300g.\nColors: red green blue\nDecorate: Dried flowers",
+      "id": 1
+    },
+    {
+      "name": "DIY Set",
+      "price": "99",
+      "detail": "Soy wax: 300g.\nColors: red green blue\nDecorate: Dried flowers",
+      "id": 2
+    },
+    {
+      "name": "Gift Set",
+      "price": "199",
+      "detail": "Soy wax: 300g.\nColors: red green blue\nDecorate: Dried flowers",
+      "id": 3
+    },
+    {
+      "name": "Set DIY",
+      "price": "99",
+      "detail": "Soy wax: 300g.\nColors: red green blue\nDecorate: Dried flowers",
+      "id": 4
+    }
   ]
 }
