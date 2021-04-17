@@ -3,13 +3,13 @@
     {
       "name": "Gift Set",
       "price": "129",
-      "detail": "Soy wax: 200g.\ncolors: 2 colors\nDecorate set: Dried flowers",
+      "detail": "Soy wax: 200g.\nColors: 2 colors\nDecorate set: Dried flowers",
       "id": 1
     },
     {
       "name": "DIY Set",
       "price": "169",
-      "detail": "Soy wax: 300g\nColors: 3 colors\nDecorate set: choose one(Dried flowers, Desert, TienTalay)",
+      "detail": "Soy wax: 300g.\nColors: 3 colors\nDecorate set: choose one(Dried flowers, Desert, TienTalay)",
       "id": 2
     }
   ]
