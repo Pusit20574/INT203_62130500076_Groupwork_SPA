@@ -33,7 +33,7 @@
       <head-note>
         <ul id="list" class="grid-row mr-5">
           <li><span class="font-semibold">{{data.name}}</span></li>
-          <span class="float-right font-semibold -mt-6">X</span>
+          <span class="float-right font-semibold -mt-6" @click="deletePromotion(data.id)">X</span>
         </ul>
       </head-note>
 
@@ -88,9 +88,7 @@ export default {
       try{
         const res =await fetch(this.url,{
         method:'POST',
-        headers:{
-          'content-type': 'application/json'
-        },
+        headers:{'content-type': 'application/json'},
         body : JSON.stringify({
           name: newData.name,
           price: newData.price,
@@ -99,6 +97,7 @@ export default {
       })
         const data = await res.json()
         this.dataPromotion=[...this.dataPromotion, data]
+        // console.log(this.dataPromotion)
       } catch(error){
         console.log(`POST error: ${error}`)
       }
@@ -111,7 +110,18 @@ export default {
       } catch (error) {
         console.log(`GET error: ${error}`)
       }
+    },
+    async deletePromotion(deleteId){
+      try{
+        const res = await fetch(`${this.url}/${deleteId}`,{
+          method: 'DELETE'
+        })
+        res.status === 200 ? (this.dataPromotion = this.dataPromotion.filter((data) => data.id !== deleteId)) : alert('Delete failed')
+      }catch(error){
+        console.log(`could not save ! ${error}`)
+      }
     }
+
   },
 
   async created(){
