@@ -187,15 +187,6 @@ export default {
       }catch(error){
         console.log(`EDIT error: ${error}`)
       }
-    },
-    async fetchEditPromotion() {
-      try {
-        const res = await fetch(`${this.DBUrl}/dataPromotion`);
-        const data = await res.json();
-        return data;
-      }catch(err) {
-        console.log(err);
-      }
     }
 
   },
@@ -203,7 +194,6 @@ export default {
   async created(){
       this.dataPromotion = await this.fetchPromotion()
   }
-
 }
 </script>
 
