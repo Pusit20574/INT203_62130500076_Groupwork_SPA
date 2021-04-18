@@ -3,7 +3,6 @@
 ## Project setup
 ```
 npm install
-vue add tailwind
 ```
 
 ### Compiles and hot-reloads for development
